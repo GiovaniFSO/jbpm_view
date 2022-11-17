@@ -1,9 +1,12 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1><% @fluxo['name'] %></h1>
 <div class="mermaid">
-  pie title Test Chart
-    "Part 1" : 55
-    "Part 2" : 45
+  flowchart TD
+    Inicio --> id1[<%=@fluxo['start_state']['transition']['to'] %><br><%= @fluxo['start_state']['task']['swimlane']%>]
+
+    <% @fluxo['task_node'].each_with_index do |node, index| %>
+      id<%= index+1 %> --> id<%=index+2 %>[<%= node['transition'][0]['to']%>]
+    <% end %>
+    <%# debugger %>
 </div>
 <div data-controller="mermaid">
   pie title Test Chart
